@@ -9,18 +9,13 @@
     }
   ],
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "baseUrl": [
-        "./"
-      ],
-      "@zeroui/zeroui/*": [
-        "./lib/zeroui/ui/*"
-      ],
       "@/*": [
-        "./lib/zeroui/*"
+        "./lib/*"
       ],
-      "@styles/*": [
-        "./lib/zeroui/css/*"
+      "@s/*": [
+        "./lib/css/*"
       ]
     },
     "target": "es5",

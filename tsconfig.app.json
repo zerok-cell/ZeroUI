@@ -10,18 +10,13 @@
     ],
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": ".",
     "paths": {
-      "baseUrl": [
-        "./"
-      ],
-      "@zeroui/zeroui/*": [
-        "./lib/zeroui/ui/*"
-      ],
       "@/*": [
-        "./lib/zeroui/*"
+        "./lib/*"
       ],
-      "@styles/*": [
-        "./lib/zeroui/css/*"
+      "@s/*": [
+        "./lib/css/*"
       ]
     },
     /* Bundler mode */
@@ -39,7 +34,6 @@
     "noUncheckedSideEffectImports": true
   },
   "include": [
-    "src",
     "lib"
   ]
 }

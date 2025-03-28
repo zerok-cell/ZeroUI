@@ -1,1 +1,0 @@
-import{j as e}from"./jsx-runtime-D_zvdyIk.js";const o={decorators:[t=>e.jsx("div",{style:{display:"flex",justifyContent:"center",alignItems:"center",height:"95vh"},children:e.jsx(t,{})})],parameters:{controls:{matchers:{color:/(background|color)$/i,date:/Date$/i}}}};export{o as default};

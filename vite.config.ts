@@ -15,7 +15,6 @@ export default defineConfig({
         tsconfigPaths(),
         libInjectCss(),
         dtsPlugin({
-            tsconfigPath: 'tsconfig.app.json',
 
             include: ["lib"],
             insertTypesEntry: true,
@@ -25,13 +24,13 @@ export default defineConfig({
         })
 
     ],
-    resolve: {
-        alias: {
-            '@zeroui/zeroui': path.resolve(__dirname, './lib/zeroui/ui'),
-            '@': path.resolve(__dirname, './lib/zeroui'),
-            '@styles': path.resolve(__dirname, './lib/zeroui/css'),
-        },
-    },
+    // resolve: {
+    //     alias: {
+    //         '@': './lib/ui',
+    //         '@s': './lib/css',
+    //     },
+    // },
+
     build: {
 
         copyPublicDir: false,

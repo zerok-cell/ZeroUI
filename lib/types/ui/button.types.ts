@@ -1,13 +1,13 @@
-import {FC, HTMLAttributes, PropsWithChildren} from "react";
+import {FC, HTMLAttributes} from "react";
+import {TVariant} from "@/types/stateElement.css.types.ts";
 
 
-type TButtonVariant = "filled"|"outlined"|"dashed"
+export type TButtonProps = {
+    text: string,
+    variant?: TVariant
+} &
+    HTMLAttributes<HTMLButtonElement>
 
-type TButtonProps = {text:string,
-variant?:TButtonVariant
-}
-
- type TButton = FC<TButtonProps> & PropsWithChildren<
-HTMLAttributes<HTMLButtonElement>
+type TButton = FC<TButtonProps
 >
 export default TButton
