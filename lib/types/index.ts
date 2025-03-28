@@ -1,0 +1,1 @@
+export type {default as TButton} from "./ui/button.types.ts"

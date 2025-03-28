@@ -1,18 +1,33 @@
 {
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
   ],
   "compilerOptions": {
-    // по умолчанию
+    "paths": {
+      "baseUrl": [
+        "./"
+      ],
+      "@zeroui/zeroui/*": [
+        "./lib/zeroui/ui/*"
+      ],
+      "@/*": [
+        "./lib/zeroui/*"
+      ],
+      "@styles/*": [
+        "./lib/zeroui/css/*"
+      ]
+    },
     "target": "es5",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-
-    // добавленное
     "jsx": "react",
     "module": "ESNext",
     "declaration": true,
@@ -21,7 +36,6 @@
     "outDir": "dist",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "emitDeclarationOnly": true,
-  },
-
+    "emitDeclarationOnly": true
+  }
 }

@@ -1,12 +1,9 @@
-import {Button} from "./components";
-
 function App() {
 
-  return (
-    <>
-     <Button text={"dw"}/>
-    </>
-  )
+    return (
+        <>
+        </>
+    )
 }
 
 export default App
