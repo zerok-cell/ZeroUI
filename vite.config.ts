@@ -7,6 +7,7 @@ import * as path from "node:path";
 import {libInjectCss} from "vite-plugin-lib-inject-css";
 import {fileURLToPath} from 'node:url'
 import {globSync} from 'glob'
+import purgeCssPlugin from "@mojojoejo/vite-plugin-purgecss";
 
 const libName = "zeroui"
 
@@ -14,6 +15,7 @@ export default defineConfig({
     plugins: [react(),
         tsconfigPaths(),
         libInjectCss(),
+        purgeCssPlugin(),
         dtsPlugin({
 
             include: ["lib"],

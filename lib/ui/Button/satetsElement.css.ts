@@ -4,12 +4,19 @@ import {varsGlobalTheme} from "@/main.ts";
 
 export const stateElement = styleVariants({
     filled: [base, {
-        border: `none`,
+        borderStyle: "none",
+
     }],
+
+
     outlined: [base, {
-        border: `1px solid ${varsGlobalTheme.colors.accent}`,
+        borderStyle: "solid",
+        borderColor: varsGlobalTheme.colors.accent
     }],
     dashed: [base, {
-        border: `1px dashed ${varsGlobalTheme.colors.accent}`,
-    }]
+        borderStyle: "dashed",
+        borderColor: varsGlobalTheme.colors.accent
+
+    }],
+
 })
