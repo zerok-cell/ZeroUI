@@ -29,7 +29,9 @@ const varsGlobalTheme = createGlobalThemeContract({
         sm: "small-rounded",
         md: "middle-rounded",
         lg: "large-rounded"
-    }
+    },
+
+
 });
 
 
