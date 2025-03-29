@@ -1,1 +1,0 @@
-export type {default as DTypes} from "./d.types.ts"
