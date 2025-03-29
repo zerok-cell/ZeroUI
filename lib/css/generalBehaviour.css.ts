@@ -15,6 +15,9 @@ export const paddingSize = styleVariants({
 })
 
 export const borderSize = styleVariants({
+    none: {
+        borderWidth: "0px"
+    },
     sm: {
         borderWidth: "1px"
     },
@@ -24,6 +27,11 @@ export const borderSize = styleVariants({
     lg: {
         borderWidth: "3px"
     }
+})
+
+export const colorBaseStyle = style({
+    backgroundColor: varsGlobalTheme.colors.primary,
+    color: varsGlobalTheme.colors.accent,
 })
 
 export const clickElement = style({

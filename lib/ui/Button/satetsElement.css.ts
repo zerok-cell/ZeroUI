@@ -5,10 +5,7 @@ import {varsGlobalTheme} from "@/main.ts";
 export const stateElement = styleVariants({
     filled: [base, {
         borderStyle: "none",
-
     }],
-
-
     outlined: [base, {
         borderStyle: "solid",
         borderColor: varsGlobalTheme.colors.accent

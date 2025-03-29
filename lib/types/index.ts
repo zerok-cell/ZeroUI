@@ -1,2 +1,5 @@
-export type {default as TButton} from "./ui/button.types.ts"
-export type {default as TTag} from "./ui/tag.types.ts"
+export type {default as TButton} from "@/types/ui/button.types.ts"
+export type {default as TTag} from "@/types/ui/tag.types.ts"
+export type {default as TBaseText} from "@/types/textProps.types.ts"
+export type {default as TBadge} from "@/types/ui/badge.types.ts"
+export type {default as TVariant} from "@/types/stateElement.css.types.ts"
