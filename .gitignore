@@ -26,3 +26,4 @@ dist-ssr
 .init_metolorgy
 .envrc
 *storybook.log
+sandbox.ts

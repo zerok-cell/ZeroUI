@@ -1,38 +1,36 @@
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
 import {vanillaExtractPlugin} from '@vanilla-extract/vite-plugin';
-import dtsPlugin from "vite-plugin-dts";
+import dts from "vite-plugin-dts";
 import tsconfigPaths from "vite-tsconfig-paths";
 import * as path from "node:path";
 import {libInjectCss} from "vite-plugin-lib-inject-css";
-import {fileURLToPath} from 'node:url'
-import {globSync} from 'glob'
 import purgeCssPlugin from "@mojojoejo/vite-plugin-purgecss";
+import {globSync} from "glob"
+import {fileURLToPath} from "url"
+import {visualizer} from "rollup-plugin-visualizer";
 
 const libName = "zeroui"
+
 
 export default defineConfig({
     plugins: [react(),
         tsconfigPaths(),
+        visualizer({
+            filename: './stats.html',
+            gzipSize: true
+        }),
         libInjectCss(),
         purgeCssPlugin(),
-        dtsPlugin({
-
+        dts({
+            exclude: ["lib/utils"],
+            tsconfigPath: "tsconfig.app.json",
             include: ["lib"],
             insertTypesEntry: true,
         }),
-        vanillaExtractPlugin({
-            identifiers: ({hash}) => `${libName}-${hash}`
-        })
+        vanillaExtractPlugin()
 
     ],
-    // resolve: {
-    //     alias: {
-    //         '@': './lib/ui',
-    //         '@s': './lib/css',
-    //     },
-    // },
-
     build: {
 
         copyPublicDir: false,
@@ -44,7 +42,7 @@ export default defineConfig({
             // formats: ["es"],
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'react/jsx-runtime'],
+            external: ['react', 'react-dom', "lib/**/index.ts", 'react/jsx-runtime'],
             input: Object.fromEntries(
                 globSync(['lib/ui/**/index.tsx', 'lib/main.ts']).map((file) => {
                     // This remove `src/` as well as the file extension from each

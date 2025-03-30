@@ -1,6 +1,6 @@
 import {style} from "@vanilla-extract/css";
 import {clickElement, colorBaseStyle} from "@s/generalBehaviour.css.ts";
-import {flexBox} from "@s/flex.types.ts";
+import {flexBox} from "@s/flex.css.ts";
 import {varsGlobalTheme} from "@/main.ts";
 
 
