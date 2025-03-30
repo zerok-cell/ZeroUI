@@ -17,7 +17,7 @@ import {createGlobalTheme, createGlobalThemeContract} from "@vanilla-extract/css
  *         lg:"150px"
  *     }
  * })
- *@contract
+ * @contract
  */
 const varsGlobalTheme = createGlobalThemeContract({
     colors: {
