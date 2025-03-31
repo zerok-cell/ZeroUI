@@ -23,7 +23,7 @@ export default defineConfig({
         libInjectCss(),
         purgeCssPlugin(),
         dts({
-            exclude: ["lib/utils"],
+            exclude: ["lib/utils", "lib/css"],
             tsconfigPath: "tsconfig.app.json",
             include: ["lib"],
             insertTypesEntry: true,

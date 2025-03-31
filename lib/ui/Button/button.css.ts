@@ -1,4 +1,4 @@
-import varsGlobalTheme from "@s/theme/base.css.ts";
+import varsGlobalTheme from "@/theme/base.css.ts";
 import {createVar, style} from "@vanilla-extract/css";
 import {clickElement} from "@s/generalBehaviour.css.ts";
 

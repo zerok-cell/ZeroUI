@@ -11,6 +11,5 @@ export type TButtonProps = {
     HTMLAttributes<HTMLButtonElement>
     & Pick<TBaseText, "text">
 
-type TButton = FC<TButtonProps
->
+type TButton = FC<TButtonProps>
 export default TButton

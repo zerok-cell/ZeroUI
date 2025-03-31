@@ -1,5 +1,5 @@
 import {style, styleVariants} from "@vanilla-extract/css";
-import varsGlobalTheme from "./theme/base.css.ts";
+import varsGlobalTheme from "@/theme/base.css.ts";
 
 
 export const paddingSize = styleVariants({

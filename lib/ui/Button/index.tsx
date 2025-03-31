@@ -13,7 +13,15 @@ import classNames from "classnames";
  * @param props
  * @constructor
  */
-const Button: TButton = ({text, variant = "outlined", className, padding = "sm", borderWh = 'sm', ...props}) => {
+const Button: TButton = ({
+                             text,
+                             variant = "outlined",
+                             children,
+                             className,
+                             padding = "sm",
+                             borderWh = 'sm',
+                             ...props
+                         }) => {
     const variantButton = stateElement[variant] || stateElement["outlined"]
     const style = classNames(borderSize[borderWh], variantButton, className, paddingSize[padding],
     )
@@ -21,7 +29,8 @@ const Button: TButton = ({text, variant = "outlined", className, padding = "sm",
 
         className={`${style}`}
         {...props}
-    >{text}</button>
+    >{text}{children}</button>
 
 }
+export {default as IconButton} from "./IconButton"
 export default Button
