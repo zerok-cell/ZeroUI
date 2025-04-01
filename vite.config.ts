@@ -33,7 +33,7 @@ export default defineConfig({
             insertTypesEntry: true,
         }),
         vanillaExtractPlugin({
-            identifiers: ({hash}) => `zr_${hash}`
+            identifiers: ({hash}) => `zr-${hash}`
         })
 
     ],

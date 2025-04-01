@@ -4,6 +4,7 @@ import {clickElement} from "@s/generalBehaviour.css.ts";
 import {recipe} from "@vanilla-extract/recipes";
 import {paddingSize} from "@s/padding/padding.css.ts";
 import {borderStyle, borderWidth} from "@s/border/border.css.ts";
+import {flexBox} from "@s/flex.css.ts";
 
 
 const buttonSize = createVar()
@@ -12,7 +13,6 @@ const buttonSize = createVar()
 export const buttonStyle = recipe({
     base: [
         {
-
             vars: {
                 [buttonSize]: "max-content"
             },
@@ -21,6 +21,7 @@ export const buttonStyle = recipe({
             width: buttonSize,
             height: buttonSize,
         },
+        flexBox,
         clickElement
     ],
     variants: {

@@ -32,5 +32,4 @@ const Button: TButton = ({
     >{children}</button>
 
 }
-export {default as IconButton} from "./IconButton"
 export default Button
