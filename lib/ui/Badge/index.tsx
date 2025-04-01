@@ -2,10 +2,12 @@ import {TBadge} from "@/types";
 import badgeStyle, {paragraphBadgeStyle} from "@/ui/Badge/badge.css.ts";
 
 const Badge: TBadge = ({text, borderStyle, borderWidth,}) => {
-    return <div className={badgeStyle({
+    const style = badgeStyle({
         borderWidth,
         borderStyle,
-    })}>
+    })
+
+    return <div className={style}>
         <p className={paragraphBadgeStyle}>
             {text}
         </p>

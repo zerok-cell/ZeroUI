@@ -1,17 +1,16 @@
-import {tagStyle} from "./tag.css.ts";
 import TTag from "@/types/ui/tag.types.ts";
 import addSymbolConditionExist from "@/utils/addSymbolConditionExist.ts";
 import {Button} from "@/ui";
+import {flexBox} from "@s/flex.css.ts";
 
-const ButtonTag: TTag = ({selected, children, text, borderStyle, sharp, ...props}) => {
+const ButtonTag: TTag = ({selected, children, borderStyle, sharp, ...props}) => {
     const sharpAdd = addSymbolConditionExist(sharp, "#")
-    const inlineText = sharpAdd + addSymbolConditionExist(text, text)
-
+    const selectedOrNot = selected ? "lg" : undefined
     return <Button
-        className={tagStyle()} text={inlineText}
-        border={selected ? "lg" : undefined}
+        className={flexBox}
+        border={selectedOrNot}
         borderStyle={borderStyle} {...props}>
-        {children}
+        {sharpAdd}{children}
     </Button>
 }
 

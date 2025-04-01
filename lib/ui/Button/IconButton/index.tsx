@@ -1,9 +1,8 @@
-import {TIconButton} from "@/types/ui/iconButton.types.ts";
 import {Button} from "@/ui";
+import {TButton} from "@/types";
 
-const IconButton: TIconButton = ({children, variant, ...props}) => {
-    console.log(variant)
-    return <Button text={""} {...props} variant={variant}>
+const IconButton: TButton = ({children, ...props}) => {
+    return <Button {...props}>
         {children}
     </Button>
 }

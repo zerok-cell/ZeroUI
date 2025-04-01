@@ -1,18 +1,16 @@
-import {style} from "@vanilla-extract/css";
+import {globalStyle, style} from "@vanilla-extract/css";
 import {recipe} from "@vanilla-extract/recipes";
-
-// export const tagStyle = style({
-//     padding: "2px 10px"
-//
-// })
+import {flexBox} from "@s/flex.css.ts";
 
 
 export const tagStyle = recipe({
-    base: {}
+    base: [flexBox, {}]
 })
 
 export const tagSelected = style({
     borderWidth: "5px"
 })
 
-
+globalStyle(`${tagStyle()} *`, {
+    margin: '0'
+})

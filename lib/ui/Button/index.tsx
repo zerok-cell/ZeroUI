@@ -4,14 +4,15 @@ import {classConcat} from "@/utils/classConcat.ts";
 
 /**
  *
- * @param text Pass the parameter for text button, or pass text button wit children
- * @param variant Variant button, can to be filled, outlined, dashed
+ * @param children
  * @param className
+ * @param borderStyle
+ * @param border
+ * @param padding
  * @param props
  * @constructor
  */
 const Button: TButton = ({
-                             text,
                              children,
                              className = '',
                              borderStyle,
@@ -28,7 +29,7 @@ const Button: TButton = ({
     return <button
         className={style}
         {...props}
-    >{text}{children}</button>
+    >{children}</button>
 
 }
 export {default as IconButton} from "./IconButton"
