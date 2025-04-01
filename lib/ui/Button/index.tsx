@@ -1,27 +1,35 @@
 import {TButton} from "@/types";
-import {stateElement} from "@/ui/Button/satetsElement.css.ts";
-import {borderSize, paddingSize} from "@s/generalBehaviour.css.ts";
-import classNames from "classnames";
+import {buttonStyle} from "@/ui/Button/button.css.ts";
+import {classConcat} from "@/utils/classConcat.ts";
 
 /**
  *
- * @param text Pass the parameter for text button, or pass text button wit children
- * @param variant Variant button, can to be filled, outlined, dashed
+ * @param children
  * @param className
- * @param padding Size padding, should to be "lg", "md","sm"
- * @param borderSize Size border, should to be "lg", "md","sm"
+ * @param borderStyle
+ * @param border
+ * @param padding
  * @param props
  * @constructor
  */
-const Button: TButton = ({text, variant = "outlined", className, padding = "sm", borderWh = 'sm', ...props}) => {
-    const variantButton = stateElement[variant] || stateElement["outlined"]
-    const style = classNames(borderSize[borderWh], variantButton, className, paddingSize[padding],
-    )
-    return <button
+const Button: TButton = ({
+                             children,
+                             className = '',
+                             borderStyle,
+                             border,
+                             padding,
+                             ...props
+                         }) => {
 
-        className={`${style}`}
+    const style = classConcat(buttonStyle({
+        border,
+        borderStyle,
+        padding
+    }), className)
+    return <button
+        className={style}
         {...props}
-    >{text}</button>
+    >{children}</button>
 
 }
 export default Button

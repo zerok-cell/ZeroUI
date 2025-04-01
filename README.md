@@ -1,6 +1,6 @@
 <div align="center">
 
-![ZeroUI](./Readme/Frame%2010%20(2)_1.svg)
+![ZeroUI](Readme/Header.svg)
 
 </div>
 

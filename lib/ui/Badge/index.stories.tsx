@@ -4,11 +4,13 @@ import Badge from "@/ui/Badge/index.tsx";
 
 const meta: Meta<typeof Badge> = {
     argTypes: {
-        border: {
-            type: 'boolean'
-        },
-        sizeBorder: {
+
+        borderWidth: {
             options: ["lg", "md", "sm"],
+            control: {type: "select"}
+        },
+        borderStyle: {
+            options: ["filled", "outlined", "dashed", null],
             control: {type: "select"}
         },
         text: {

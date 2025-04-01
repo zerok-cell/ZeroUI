@@ -4,19 +4,49 @@ import ButtonTag from "@/ui/Tag/index.tsx";
 
 const meta: Meta<typeof ButtonTag> = {
     argTypes: {
-        text: {
-            control: {type: 'text'},
-        },
-        variant: {
+
+        borderStyle: {
             options: ["outlined", "dashed", "filled", null],
-            control: {type: 'select'},
+            control: {type: "select"},
+            description: "Стиль границы тега (outlined, dashed, filled).",
+            table: {
+                type: {summary: `"outlined" | "dashed" | "filled" | null`},
+                defaultValue: {summary: "outlined"},
+            },
         },
         selected: {
-            control: "boolean"
+            control: {type: "boolean"},
+            description: "Флаг выбора. Если true, тег отображается с выделенной границей.",
+            table: {
+                type: {summary: "boolean"},
+                defaultValue: {summary: "false"},
+            },
         },
         sharp: {
-            control: "boolean"
-        }
+            control: {type: "boolean"},
+            description: "Отображать ли символ `#` перед текстом.",
+            table: {
+                type: {summary: "boolean"},
+                defaultValue: {summary: "false"},
+            },
+        },
+        children: {
+            control: {type: "text"},
+            description: "Дополнительный контент внутри тега, например, HTML-элементы.",
+            table: {
+                type: {summary: "ReactNode"},
+                defaultValue: {summary: "undefined"},
+            },
+        },
+        border: {
+            options: ["none", "sm", "md", "lg", undefined],
+            control: {type: "select"},
+            description: "Толщина границы, если выбрано.",
+            table: {
+                type: {summary: `"none" | "sm" | "md" | "lg" | undefined`},
+                defaultValue: {summary: "undefined"},
+            },
+        },
     },
     component: ButtonTag,
 } satisfies Meta<typeof ButtonTag>;
@@ -27,27 +57,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        text: "Tag",
+        children: "Tag",
         sharp: true,
-        variant: "outlined",
+        borderStyle: "outlined",
         selected: false
     }
 };
 
 export const SelectedTag: Story = {
     args: {
-        text: "Tag",
+        children: "Tag",
         sharp: true,
-        variant: "outlined",
+        borderStyle: "outlined",
         selected: true
     }
 };
 
 export const NoSharp: Story = {
     args: {
-        text: "Tag",
+        children: "Tag",
         sharp: false,
-        variant: "outlined",
+        borderStyle: "outlined",
         selected: false
     }
 };

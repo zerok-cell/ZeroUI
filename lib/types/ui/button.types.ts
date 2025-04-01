@@ -1,16 +1,13 @@
 import {FC, HTMLAttributes} from "react";
-import {borderSize, paddingSize} from "@s/generalBehaviour.css.ts";
-import {TBaseText, TVariant} from "@/types";
+import {buttonStyle} from "@/ui/Button/button.css.ts";
+import {RecipeVariants} from "@vanilla-extract/recipes";
 
 
-export type TButtonProps = {
-    variant?: TVariant,
-    padding?: keyof typeof paddingSize
-    borderWh?: keyof typeof borderSize
-} &
+export type TButtonProps =
     HTMLAttributes<HTMLButtonElement>
-    & Pick<TBaseText, "text">
+    & RecipeVariants<typeof buttonStyle>
 
-type TButton = FC<TButtonProps
->
+type TButton = FC<TButtonProps>
+
+
 export default TButton

@@ -9,6 +9,7 @@ import purgeCssPlugin from "@mojojoejo/vite-plugin-purgecss";
 import {globSync} from "glob"
 import {fileURLToPath} from "url"
 import {visualizer} from "rollup-plugin-visualizer";
+import {analyzer} from 'vite-bundle-analyzer'
 
 const libName = "zeroui"
 
@@ -21,18 +22,51 @@ export default defineConfig({
             gzipSize: true
         }),
         libInjectCss(),
-        purgeCssPlugin(),
+        purgeCssPlugin({
+            content: ['./lib/**/*.tsx'], // Проверяйте все файлы
+        }),
+        analyzer(),
         dts({
-            exclude: ["lib/utils"],
+            exclude: ["lib/utils", "lib/css"],
             tsconfigPath: "tsconfig.app.json",
             include: ["lib"],
             insertTypesEntry: true,
         }),
-        vanillaExtractPlugin()
+        vanillaExtractPlugin({
+            identifiers: ({hash}) => `zr-${hash}`
+        })
 
     ],
     build: {
-
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                passes: 15, // Увеличено количество повторных оптимизаций для глубокого анализа
+                ecma: 2020, // Современные стандарты ECMAScript для улучшения совместимости
+                unused: true, // Удаление неиспользуемых переменных
+                dead_code: true, // Удаление "мертвого" кода
+                collapse_vars: true, // Оптимизация переменных
+                reduce_vars: true, // Дополнительная оптимизация переменных
+                module: true, // Оптимизация для модулей ES6
+                drop_console: true, // Удаляет console.log
+                drop_debugger: true, // Удаляет debugger
+                toplevel: true, // Оптимизация на верхнем уровне кода
+                hoist_funs: true, // Поднятие функций для улучшения производительности
+                hoist_vars: true, // Поднятие переменных
+                side_effects: true, // Удаление кода без побочных эффектов
+                conditionals: true, // Оптимизация условных выражений
+                sequences: true, // Оптимизация последовательностей операторов
+                defaults: true, // Упрощение значений по умолчанию
+            },
+            mangle: {
+                toplevel: true, // Переименование переменных на верхнем уровне
+                properties: {regex: /^_/}, // Переименование свойств, начинающихся с `_`
+            },
+            format: {
+                comments: false, // Удаляет комментарии
+                beautify: false, // Отключает форматирование (максимальное сжатие)
+            },
+        },
         copyPublicDir: false,
         lib: {
 
@@ -42,6 +76,7 @@ export default defineConfig({
             // formats: ["es"],
         },
         rollupOptions: {
+
             external: ['react', 'react-dom', "lib/**/index.ts", 'react/jsx-runtime'],
             input: Object.fromEntries(
                 globSync(['lib/ui/**/index.tsx', 'lib/main.ts']).map((file) => {
