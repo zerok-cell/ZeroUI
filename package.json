@@ -5,15 +5,14 @@
   "files": [
     "dist"
   ],
-  "main": "dist/main.js.js",
+  "main": "dist/main.js",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
   "exports": {
     ".": {
       "types": "./dist/main.d.ts",
       "import": "./dist/main.js"
-    },
-    "./dist/main.css": "./dist/main.css"
+    }
   },
   "sideEffects": false,
   "scripts": {
@@ -67,6 +66,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-visualizer": "^5.14.0",
     "storybook": "^8.6.11",
+    "svgo": "^3.3.2",
     "terser": "^5.39.0",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.24.1",
