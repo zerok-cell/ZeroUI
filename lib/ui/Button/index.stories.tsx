@@ -5,11 +5,11 @@ import Index from "@/ui/Button/index.tsx";
 const baseOptSize = ["lg", "md", "sm"]
 const meta: Meta<typeof Index> = {
     argTypes: {
-        variant: {
+        borderStyle: {
             options: ["outlined", "dashed", "filled", null],
             control: {type: 'select'},
         },
-        borderWh: {
+        border: {
             options: baseOptSize,
             control: {type: 'select'},
         },
@@ -28,13 +28,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         text: "Button",
-        variant: "outlined"
+        borderStyle: "outlined"
     }
 };
 
 export const Dashed: Story = {
     args: {
-        variant: "dashed",
+        borderStyle: "dashed",
         text: "Button",
 
     }
@@ -43,6 +43,6 @@ export const Dashed: Story = {
 export const Filled: Story = {
     args: {
         text: "Button",
-        variant: "filled"
+        borderStyle: "filled"
     }
 };

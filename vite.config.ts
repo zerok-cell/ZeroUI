@@ -9,6 +9,8 @@ import purgeCssPlugin from "@mojojoejo/vite-plugin-purgecss";
 import {globSync} from "glob"
 import {fileURLToPath} from "url"
 import {visualizer} from "rollup-plugin-visualizer";
+import {analyzer} from 'vite-bundle-analyzer'
+import {terser} from "rollup-plugin-terser";
 
 const libName = "zeroui"
 
@@ -21,7 +23,10 @@ export default defineConfig({
             gzipSize: true
         }),
         libInjectCss(),
-        purgeCssPlugin(),
+        purgeCssPlugin({
+            content: ['./lib/**/*.tsx'],
+        }),
+        analyzer(),
         dts({
             exclude: ["lib/utils", "lib/css"],
             tsconfigPath: "tsconfig.app.json",
@@ -32,7 +37,7 @@ export default defineConfig({
 
     ],
     build: {
-
+        minify: false,
         copyPublicDir: false,
         lib: {
 
@@ -42,6 +47,20 @@ export default defineConfig({
             // formats: ["es"],
         },
         rollupOptions: {
+            plugins: [
+                terser({
+                    compress: {
+                        unused: true, // Удаление неиспользуемых переменных
+                        dead_code: true, // Удаление "мертвого" кода
+                        collapse_vars: true, // Оптимизация переменных
+                        drop_console: true, // Удаляет console.log
+                        drop_debugger: true, // Удаляет debugger
+                    },
+                    format: {
+                        comments: false, // Удаляет комментарии
+                    },
+                }),
+            ],
             external: ['react', 'react-dom', "lib/**/index.ts", 'react/jsx-runtime'],
             input: Object.fromEntries(
                 globSync(['lib/ui/**/index.tsx', 'lib/main.ts']).map((file) => {

@@ -7,7 +7,7 @@ const meta: Meta<typeof ButtonTag> = {
         text: {
             control: {type: 'text'},
         },
-        variant: {
+        borderStyle: {
             options: ["outlined", "dashed", "filled", null],
             control: {type: 'select'},
         },
@@ -29,7 +29,7 @@ export const Default: Story = {
     args: {
         text: "Tag",
         sharp: true,
-        variant: "outlined",
+        borderStyle: "outlined",
         selected: false
     }
 };
@@ -38,7 +38,7 @@ export const SelectedTag: Story = {
     args: {
         text: "Tag",
         sharp: true,
-        variant: "outlined",
+        borderStyle: "outlined",
         selected: true
     }
 };
@@ -47,7 +47,7 @@ export const NoSharp: Story = {
     args: {
         text: "Tag",
         sharp: false,
-        variant: "outlined",
+        borderStyle: "outlined",
         selected: false
     }
 };

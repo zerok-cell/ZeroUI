@@ -1,42 +1,25 @@
-import {style, styleVariants} from "@vanilla-extract/css";
+import {style} from "@vanilla-extract/css";
 import varsGlobalTheme from "@/theme/base.css.ts";
 
-
-export const paddingSize = styleVariants({
-    sm: {
-        padding: "5px 10px"
-    },
-    md: {
-        padding: "10px 15px"
-    },
-    lg: {
-        padding: "15px 20px"
-    }
-})
-
-export const borderSize = styleVariants({
-    none: {
-        borderWidth: "0px"
-    },
-    sm: {
-        borderWidth: "1px"
-    },
-    md: {
-        borderWidth: "2px"
-    },
-    lg: {
-        borderWidth: "3px"
-    }
-})
-
+/**
+ * @description Базовые стили цветов для элементов.
+ * Имеет интеграцию с темой.
+ * @see varsGlobalTheme
+ */
 export const colorBaseStyle = style({
     backgroundColor: varsGlobalTheme.colors.primary,
     color: varsGlobalTheme.colors.accent,
 })
 
-export const clickElement = style({
-    backgroundColor: varsGlobalTheme.colors.primary,
+
+/**
+ * @description Базовые стили для события `":active"`.
+ * Имеет интеграцию с темой. И с классом `"colorBaseStyle"`
+ * @see colorBaseStyle
+ * @see varsGlobalTheme
+ */
+export const clickElement = style([colorBaseStyle, {
     ':active': {
         backgroundColor: varsGlobalTheme.colors.active,
     }
-})
+}])

@@ -1,17 +1,37 @@
 import varsGlobalTheme from "@/theme/base.css.ts";
-import {createVar, style} from "@vanilla-extract/css";
+import {createVar} from "@vanilla-extract/css";
 import {clickElement} from "@s/generalBehaviour.css.ts";
+import {recipe} from "@vanilla-extract/recipes";
+import {paddingSize} from "@s/padding/padding.css.ts";
+import {borderStyle, borderWidth} from "@s/border/border.css.ts";
 
 
 const buttonSize = createVar()
 
-export const base = style([{
-    vars: {
-        [buttonSize]: "max-content"
+
+export const buttonStyle = recipe({
+    base: [
+        {
+
+            vars: {
+                [buttonSize]: "max-content"
+            },
+            borderColor: varsGlobalTheme.colors.accent,
+            borderRadius: varsGlobalTheme.roundedPx.md,
+            width: buttonSize,
+            height: buttonSize,
+        },
+        clickElement
+    ],
+    variants: {
+        border: borderWidth,
+        borderStyle: borderStyle,
+        padding: paddingSize
     },
-    color: varsGlobalTheme.colors.accent,
-    borderRadius: varsGlobalTheme.roundedPx.md,
-    width: buttonSize,
-    height: buttonSize,
-}, clickElement])
+    defaultVariants: {
+        border: "sm",
+        borderStyle: "outlined",
+        padding: "sm"
+    }
+})
 

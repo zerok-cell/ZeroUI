@@ -1,11 +1,11 @@
 import {TBadge} from "@/types";
-import badgeStyle, {borderStyle, paragraphBadgeStyle} from "@/ui/Badge/badge.css.ts";
-import classNames from "classnames";
-import {borderSize} from "@s/generalBehaviour.css.ts";
+import badgeStyle, {paragraphBadgeStyle} from "@/ui/Badge/badge.css.ts";
 
-const Badge: TBadge = ({text, border = false, sizeBorder}) => {
-    const style = classNames(badgeStyle, (border && classNames(borderStyle, borderSize[sizeBorder ? sizeBorder : "none"])))
-    return <div className={style}>
+const Badge: TBadge = ({text, borderStyle, borderWidth,}) => {
+    return <div className={badgeStyle({
+        borderWidth,
+        borderStyle,
+    })}>
         <p className={paragraphBadgeStyle}>
             {text}
         </p>
