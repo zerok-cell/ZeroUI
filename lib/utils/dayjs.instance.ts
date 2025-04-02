@@ -46,22 +46,6 @@ dayjs.extend(isYesterday);
 dayjs.extend(Calendar);
 
 
-const initialData = dayjs("2027-01-01").add(-1, "month");
-const maxDay = initialData.daysInMonth().toString();
-
-/**
- * @description Дата на которую окончился прошлый месяц
- */
-const newData = dayjs(`${initialData.year()}-${initialData.month() + 1}-${maxDay}`);
-
-/**
- * Число ячеек которое надо зарезервировать или скрыть в новом месяце
- */
-
-// console.log(newData.day())
-// console.log(newData.format("dddd"));
-
-
 export default dayjs;
 
 
