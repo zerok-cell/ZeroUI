@@ -3,6 +3,8 @@ import {TFReadDayMap} from "@/types/utils/calendar.types.ts";
 
 type TCalendarButtonProps = {
     num: string
+    disable?: boolean
+
 }
 
 type TCalendarLineProps = {

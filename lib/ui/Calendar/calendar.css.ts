@@ -17,7 +17,21 @@ const calendarButtonStyle = recipe({
             height: buttonSize,
             borderRadius: varsGlobalTheme.roundedPx.md
         }
-    ]
+
+    ],
+    variants: {
+        disable: {
+            true: {
+                ":active": {
+                    background: "transparent",
+                }
+            },
+            false: {},
+        },
+    },
+    defaultVariants: {
+        disable: false,
+    },
 })
 
 

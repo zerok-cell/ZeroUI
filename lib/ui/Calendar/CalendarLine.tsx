@@ -11,12 +11,10 @@ const CalendarLine: TCalendarLine = ({data}) => {
     // }, [data]);
 
     // const sizeLine = !error ? Array.from({length: data}, (_, i) => i + 1) : [];
-
     return (
         <div className={lineStyle}>
             {data.map((month) => (
-
-                <CalendarButton key={month} num={month === 0 ? '' : month.toString()}/>
+                <CalendarButton disable={month === 0} key={month} num={month === 0 ? '' : month.toString()}/>
             ))}
         </div>
     );
