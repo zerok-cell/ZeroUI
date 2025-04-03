@@ -26,3 +26,29 @@ export const paddingSize = styleVariants({
         padding: "25px 30px",
     },
 });
+export const paddingSizeAll = styleVariants({
+    none: {
+        padding: "0px",
+    },
+    xxs: {
+        padding: 1,
+    },
+    xs: {
+        padding: 2,
+    },
+    sm: {
+        padding: 3,
+    },
+    md: {
+        padding: 4,
+    },
+    lg: {
+        padding: 5,
+    },
+    xl: {
+        padding: 6,
+    },
+    xxl: {
+        padding: 7,
+    },
+});
