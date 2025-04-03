@@ -28,8 +28,10 @@ type FTReadLastMonthDayIdx = FTExtendedFunction<RFTClosing<{
     indexDayJs: 0 | 1 | 2 | 3 | 4 | 5 | 6
 }>, void>
 type TFReadDayMap = FTExtendedFunction<RFTClosing<number[]>, void>
+type TFGenerateLines = FTExtendedFunction<RFTClosing<number[][]>, { chunkSize: number }>
 
 export type {
+    TFGenerateLines,
     TFReadDayMap,
     FTExtendFunctionChain,
     FTGenerateDayMap,

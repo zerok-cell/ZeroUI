@@ -24,6 +24,12 @@ export const lineStyle = style([
     }
 ])
 
+export const calendarStyle = style([
+    {
+        flexDirection: "column", justifyContent: "left",
+        alignItems: "flex-start"
+    }
+    , flexBox])
 
 globalStyle(`${calendarButtonStyle()} *`, {
     margin: 0

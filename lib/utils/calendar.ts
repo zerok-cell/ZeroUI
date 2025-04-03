@@ -2,6 +2,7 @@ import {
     FTExtendFunctionChain,
     FTGenerateDayMap,
     FTReadLastMonthDayIdx,
+    TFGenerateLines,
     TFReadDayMap,
 } from "@/types/utils/calendar.types.ts";
 import dayjs from "dayjs";
@@ -18,13 +19,9 @@ class CalendarDjs {
      * @private
      * @type {FTReadLastMonthDayIdx | undefined}
      */
-    private monthMap: ReturnType<TFReadDayMap> | undefined
-    private lastMonthEndDayIndex: ReturnType<FTReadLastMonthDayIdx> | undefined;
+    private monthMap: ReturnType<TFReadDayMap> = []
+    private lastMonthEndDayIndex: ReturnType<FTReadLastMonthDayIdx> | undefined = undefined;
 
-    constructor() {
-        this.monthMap = []
-        this.lastMonthEndDayIndex = undefined
-    }
 
     /**
      * Рассчитывает и сохраняет последний день предыдущего месяца на основе предоставленной даты.
@@ -78,10 +75,27 @@ class CalendarDjs {
 
     public generateDayMapWithPastMonth: FTExtendFunctionChain = ({data}) => {
         const pastMonth: ReturnType<typeof this.readLastMonthDayIdx> = this.getLastMonthDayIdx({data}).readLastMonthDayIdx()
-        const nullableMonth: ReturnType<TFReadDayMap> = Array.from({length: pastMonth.indexDayJs}, (): number => 0)
-        this.generateDayMap({data, mapFn: (_, day) => nullableMonth.push(day + 1)})
-        this.monthMap = nullableMonth
+        const genDayMap = this.generateDayMap({data, mapFn: (_, day) => day + 1})
+        const pastMonthDay = Array.from({length: pastMonth.indexDayJs}, (): number => 0);
+        const behaviourLength = genDayMap.length + pastMonthDay.length;
+        this.monthMap = [
+            ...pastMonthDay,
+            ...genDayMap,
+            ...Array.from({length: 36 - behaviourLength}, (): number => 0),
+
+        ]
+
+
         return this
+
+    }
+    public generateLines: TFGenerateLines = ({chunkSize}) => {
+        const array = this.monthMap
+        const result = [];
+        for (let i = 0; i < array.length; i += chunkSize) {
+            result.push(array.slice(i, i + chunkSize));
+        }
+        return result;
     }
 
     private checkAttr = <TVarData>(variable: TVarData): NonNullable<TVarData> => {
@@ -90,7 +104,8 @@ class CalendarDjs {
     };
 }
 
-const x = new CalendarDjs
-const chain = x.readDayMap()
-console.log(chain)
+
+// const x = new CalendarDjs
+// const chain = x.generateDayMapWithPastMonth({data: dayjs()}).generateLines({chunkSize: 7})
+// console.log(chain)
 export default CalendarDjs;

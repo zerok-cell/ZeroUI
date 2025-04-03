@@ -1,11 +1,12 @@
 import {FC} from "react";
+import {TFReadDayMap} from "@/types/utils/calendar.types.ts";
 
 type TCalendarButtonProps = {
     num: number
 }
 
 type TCalendarLineProps = {
-    size: number,
+    data: ReturnType<TFReadDayMap>,
 }
 type TCalendarLine = FC<TCalendarLineProps>
 type TCalendarButton = FC<TCalendarButtonProps>

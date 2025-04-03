@@ -1,5 +1,6 @@
 import TCalendarButton from "@/types/ui/calendar.types.ts";
 import calendarButtonStyle from "@/ui/Calendar/calendar.css.ts";
+import ErrorComponent from "@/ui/Errors/Error.tsx";
 
 
 /**
@@ -10,7 +11,8 @@ import calendarButtonStyle from "@/ui/Calendar/calendar.css.ts";
 const CalendarButton: TCalendarButton = ({num}) => {
     console.log(num)
     const numStr = num.toString()
-    if (numStr.length > 2) return
+    if (numStr.length > 2) return <ErrorComponent
+        text={` The numStr size is more than two (${numStr}), the number in the calendar cannot be more than two in length.`}/>
     return <button className={calendarButtonStyle()}>
         {numStr}
     </button>
