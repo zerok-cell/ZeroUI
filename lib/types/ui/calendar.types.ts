@@ -2,7 +2,7 @@ import {FC} from "react";
 import {TFReadDayMap} from "@/types/utils/calendar.types.ts";
 
 type TCalendarButtonProps = {
-    num: number
+    num: string
 }
 
 type TCalendarLineProps = {

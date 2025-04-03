@@ -29,8 +29,18 @@ type FTReadLastMonthDayIdx = FTExtendedFunction<RFTClosing<{
 }>, void>
 type TFReadDayMap = FTExtendedFunction<RFTClosing<number[]>, void>
 type TFGenerateLines = FTExtendedFunction<RFTClosing<number[][]>, { chunkSize: number }>
+type TNameMonth = {
+    fullNames: { msv: string[] } & Record<number, string>;
+    shortNames: {
+        msv: string[]
+
+    } & Record<number, string>;
+
+}
+
 
 export type {
+    TNameMonth,
     TFGenerateLines,
     TFReadDayMap,
     FTExtendFunctionChain,

@@ -25,6 +25,24 @@ export const lineStyle = style([
     }
 ])
 
+export const panelWithMonth = style({
+    display: "flex",
+    flexDirection: "row",
+    gap: 4,
+
+    padding: 4,
+    background: varsGlobalTheme.colors.primary,
+    borderRadius: varsGlobalTheme.roundedPx.md
+})
+
+
+export const calendarNameMonth = style([{
+    width: 17,
+    margin: 0,
+
+    fontSize: 10
+}])
+
 export const calendarStyle = recipe({
     base: [
         flexBox,
@@ -35,8 +53,8 @@ export const calendarStyle = recipe({
 
         {
             flexDirection: 'column',
-            justifyContent: 'flex-start',
-            alignItems: 'flex-start',
+            justifyContent: 'center',
+            alignItems: 'center',
             borderRadius: varsGlobalTheme.roundedPx.md
 
         }

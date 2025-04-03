@@ -4,8 +4,10 @@ import {
     FTReadLastMonthDayIdx,
     TFGenerateLines,
     TFReadDayMap,
+    TNameMonth,
 } from "@/types/utils/calendar.types.ts";
 import dayjs from "dayjs";
+import memoizee from "memoizee";
 
 
 /**
@@ -14,6 +16,28 @@ import dayjs from "dayjs";
  * последнего дня предыдущего месяца и его индекса. Поддерживает цепочку вызовов.
  */
 class CalendarDjs {
+    public getNameMonth = memoizee(() => {
+        const monthCount = Array.from({length: 12}, (_, indexMonth) => indexMonth)
+        const nameMonth: TNameMonth = {
+            fullNames: {
+                msv: []
+            },
+            shortNames: {
+                msv: []
+            }
+        }
+
+        monthCount.forEach((month, index) => {
+            const name = dayjs().month(month).format("MMMM");
+            nameMonth.fullNames[index] = name
+            nameMonth.fullNames.msv.push(name)
+            const sliceName = name.slice(0, 2)
+            nameMonth.shortNames[index] = sliceName
+            nameMonth.shortNames.msv.push(sliceName)
+        })
+        return nameMonth
+
+    })
     /**
      * Хранит информацию о последнем дне предыдущего месяца, включая его читаемое название и индекс.
      * @private
@@ -21,7 +45,6 @@ class CalendarDjs {
      */
     private monthMap: ReturnType<TFReadDayMap> = []
     private lastMonthEndDayIndex: ReturnType<FTReadLastMonthDayIdx> | undefined = undefined;
-
 
     /**
      * Рассчитывает и сохраняет последний день предыдущего месяца на основе предоставленной даты.
@@ -71,6 +94,7 @@ class CalendarDjs {
         return Array.from({length: data.daysInMonth()}, mapFn ? mapFn : (_: unknown, day: number) => day + 1)
 
     }
+
     public readDayMap: TFReadDayMap = () => this.checkAttr<typeof this.monthMap>(this.monthMap);
 
     public generateDayMapWithPastMonth: FTExtendFunctionChain = ({data}) => {
@@ -89,6 +113,7 @@ class CalendarDjs {
         return this
 
     }
+
     public generateLines: TFGenerateLines = ({chunkSize}) => {
         const array = this.monthMap
         const result = [];
@@ -105,7 +130,7 @@ class CalendarDjs {
 }
 
 
-// const x = new CalendarDjs
-// const chain = x.generateDayMapWithPastMonth({data: dayjs()}).generateLines({chunkSize: 7})
-// console.log(chain)
+const x = new CalendarDjs
+const chain = x.getNameMonth()
+console.log(chain)
 export default CalendarDjs;

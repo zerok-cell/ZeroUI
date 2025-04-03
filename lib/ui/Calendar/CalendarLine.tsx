@@ -15,7 +15,8 @@ const CalendarLine: TCalendarLine = ({data}) => {
     return (
         <div className={lineStyle}>
             {data.map((month) => (
-                <CalendarButton key={month} num={month === 0 ? '' : month}/>
+
+                <CalendarButton key={month} num={month === 0 ? '' : month.toString()}/>
             ))}
         </div>
     );
