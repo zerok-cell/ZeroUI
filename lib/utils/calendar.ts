@@ -1,6 +1,7 @@
 import {
     FTExtendFunctionChain,
     FTGenerateDayMap,
+    FTGetNameMonth,
     FTReadLastMonthDayIdx,
     TFGenerateLines,
     TFReadDayMap,
@@ -16,7 +17,7 @@ import memoizee from "memoizee";
  * последнего дня предыдущего месяца и его индекса. Поддерживает цепочку вызовов.
  */
 class CalendarDjs {
-    public getNameMonth = memoizee(() => {
+    public getNameMonth: FTGetNameMonth = memoizee(() => {
         const monthCount = Array.from({length: 12}, (_, indexMonth) => indexMonth)
         const nameMonth: TNameMonth = {
             fullNames: {
@@ -26,16 +27,44 @@ class CalendarDjs {
                 msv: []
             }
         }
-
-        monthCount.forEach((month, index) => {
+        console.log(dayjs().day(2).format("dddd"))
+        monthCount.forEach((month) => {
             const name = dayjs().month(month).format("MMMM");
-            nameMonth.fullNames[index] = name
-            nameMonth.fullNames.msv.push(name)
-            const sliceName = name.slice(0, 2)
-            nameMonth.shortNames[index] = sliceName
-            nameMonth.shortNames.msv.push(sliceName)
+            const sliceName = name.slice(0, 2);
+
+            nameMonth.fullNames[month] = name;
+            nameMonth.fullNames.msv.push(name);
+
+            nameMonth.shortNames[month] = sliceName;
+            nameMonth.shortNames.msv.push(sliceName);
         })
         return nameMonth
+
+    })
+
+    public getNameWeekday = memoizee(() => {
+
+        const weekdayCount = Array.from({length: 7}, (_, indexMonth) => indexMonth)
+        const nameWeekday: TNameMonth = {
+            fullNames: {
+                msv: []
+            },
+            shortNames: {
+                msv: []
+            }
+        }
+        console.log(dayjs().day(2).format("dddd"))
+        weekdayCount.forEach((month) => {
+            const name = dayjs().day(month).format("dddd");
+            const sliceName = name.slice(0, 2);
+
+            nameWeekday.fullNames[month] = name;
+            nameWeekday.fullNames.msv.push(name);
+
+            nameWeekday.shortNames[month] = sliceName;
+            nameWeekday.shortNames.msv.push(sliceName);
+        })
+        return nameWeekday
 
     })
     /**
@@ -131,6 +160,6 @@ class CalendarDjs {
 
 
 const x = new CalendarDjs
-const chain = x.getNameMonth()
+const chain = x.getNameWeekday()
 console.log(chain)
 export default CalendarDjs;

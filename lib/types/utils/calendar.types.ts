@@ -1,5 +1,6 @@
 import CalendarDjs from "@/utils/calendar.ts";
 import dayjs from "dayjs";
+import memoizee from "memoizee";
 
 
 //Типы для цепочек вызовов -----------------
@@ -37,9 +38,10 @@ type TNameMonth = {
     } & Record<number, string>;
 
 }
-
+type FTGetNameMonth = () => RFTClosing<TNameMonth> & memoizee.Memoized<() => RFTClosing<TNameMonth>>
 
 export type {
+    FTGetNameMonth,
     TNameMonth,
     TFGenerateLines,
     TFReadDayMap,

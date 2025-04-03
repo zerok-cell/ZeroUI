@@ -1,16 +1,20 @@
 import {recipe} from "@vanilla-extract/recipes";
 import varsGlobalTheme from "@/theme/base.css.ts";
-import {globalStyle, style} from "@vanilla-extract/css";
+import {createVar, globalStyle, style} from "@vanilla-extract/css";
 import {flexBox} from "@s/flex.css.ts";
 import {borderStyle, borderWidth} from "@s/border/border.css.ts";
 import {clickElement, colorBaseStyle} from "@s/generalBehaviour.css.ts";
 import {paddingSizeAll} from "@s/padding/padding.css.ts";
 
+
+export const buttonSize = createVar()
+
+
 const calendarButtonStyle = recipe({
     base: [flexBox, borderStyle["filled"], borderWidth['none'], clickElement,
         {
-            width: 40,
-            height: 40,
+            width: buttonSize,
+            height: buttonSize,
             borderRadius: varsGlobalTheme.roundedPx.md
         }
     ]
@@ -20,6 +24,8 @@ const calendarButtonStyle = recipe({
 export const lineStyle = style([
     flexBox,
     {
+        justifyContent: "space-between",
+        width: "100%",
         background: varsGlobalTheme.colors.primary,
         gap: 4
     }
@@ -28,51 +34,40 @@ export const lineStyle = style([
 export const panelWithMonth = style({
     display: "flex",
     flexDirection: "row",
-    gap: 4,
-
     padding: 4,
+    gap: 4,
+    justifyContent: "space-between",
+
     background: varsGlobalTheme.colors.primary,
     borderRadius: varsGlobalTheme.roundedPx.md
 })
 
 
-export const calendarNameMonth = style([{
-    width: 17,
-    margin: 0,
-
-    fontSize: 10
+export const calendarNameMonth = style([flexBox, {
+    width: buttonSize,
+    display: "flex",
+    fontSize: 15,
+    opacity: .5
 }])
 
 export const calendarStyle = recipe({
     base: [
-        flexBox,
         paddingSizeAll['xxl'],
         colorBaseStyle,
         borderStyle['outlined'],
         borderWidth['sm'],
-
         {
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: varsGlobalTheme.roundedPx.md
-
+            width: 300,
+            borderRadius: varsGlobalTheme.roundedPx.md,
+            vars: {
+                [buttonSize]: "40px"
+            }
         }
     ]
 })
-//
-// export const calendarStyle = style([
-//     {
-//         padding: 10,
-//         borderRadius: varsGlobalTheme.roundedPx.lg,
-//         display: "flex",
-//         background: varsGlobalTheme.colors.primary,
-//         flexDirection: "column", justifyContent: "left",
-//         alignItems: "flex-start"
-//     }])
-
 globalStyle(`${calendarButtonStyle()} *`, {
-    margin: 0
+    margin: 0,
+
 })
 
 export default calendarButtonStyle;

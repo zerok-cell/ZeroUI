@@ -6,8 +6,8 @@ import {useState} from "react";
 
 const Calendar = () => {
     const calendar = new CalendarDjs
-    const [currentMonth] = useState(calendar.generateDayMapWithPastMonth({data: dayjs("2025-5-31")}).generateLines({chunkSize: 6}))
-    const nameMonth = calendar.getNameMonth()
+    const [currentMonth] = useState(calendar.generateDayMapWithPastMonth({data: dayjs("2025-5-31")}).generateLines({chunkSize: 7}))
+    const nameMonth = calendar.getNameWeekday()
     console.log(currentMonth)
 
     return <div className={calendarStyle()}>
