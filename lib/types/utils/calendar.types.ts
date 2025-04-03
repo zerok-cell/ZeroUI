@@ -1,39 +1,41 @@
-import dayjsInstance from "@/utils/dayjs.instance.ts";
 import CalendarDjs from "@/utils/calendar.ts";
+import dayjs from "dayjs";
 
-//Типы для ципочек вызовов -----------------
 
+//Типы для цепочек вызовов -----------------
 /**
  * @description Полная противоположность `"RFFClosing"`, использовать когда функция продолжает цепочку
  */
-type RFTChain = CalendarDjs
+type RFTChain = InstanceType<typeof CalendarDjs>
 /**
  * @description Использовать когда функция закрывает цепочку вызов и не возвращает больше this
  */
 type RFTClosing<TData> = TData
 
-
 //-----------------------------------------
-
-type FTWorkingWithDayjs<FTRData> = (data: dayjsInstance.Dayjs) => FTRData
-type FTChainWorkingWithDayjs = FTWorkingWithDayjs<RFTChain>
-type FTGenerateDayMap = FTWorkingWithDayjs<RFTClosing<number[]>>
-
-type TLastMonthEndDayIndex = {
-    readonly humanReadableName: string
-    readonly indexDayJs: number
+type TBaseFunctionParameters = {
+    data: dayjs.Dayjs
 }
-type FTReadLastMonthEndDayIndex = () => RFTClosing<TLastMonthEndDayIndex>
+type FTExtendedFunction<FRTData, FTData = TBaseFunctionParameters, > = (data: FTData) => FRTData
+type FTExtendFunctionChain = FTExtendedFunction<RFTChain>
+type FTGenerateDayMap = FTExtendedFunction<RFTClosing<number[]>, TBaseFunctionParameters & {
+    mapFn?: (v: unknown, k: number) => number
+}>
 
-// type RFTGetLastMonthEndDayIndex = ReturnType<TGetLastMonthEndDayIndex>
 
+type FTReadLastMonthDayIdx = FTExtendedFunction<RFTClosing<{
+    humanReadableName: string
+    indexDayJs: 0 | 1 | 2 | 3 | 4 | 5 | 6
+}>, void>
+type TFReadDayMap = FTExtendedFunction<RFTClosing<number[]>, void>
 
 export type {
+    TFReadDayMap,
+    FTExtendFunctionChain,
     FTGenerateDayMap,
-    FTWorkingWithDayjs,
-    TLastMonthEndDayIndex,
-    RFTClosing,
+    FTReadLastMonthDayIdx,
+    FTExtendedFunction,
+    TBaseFunctionParameters,
     RFTChain,
-    FTReadLastMonthEndDayIndex,
-    FTChainWorkingWithDayjs
+    RFTClosing
 }

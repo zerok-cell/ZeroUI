@@ -1,10 +1,10 @@
-import dayjs from "dayjs";
 import {
-    FTChainWorkingWithDayjs,
+    FTExtendFunctionChain,
     FTGenerateDayMap,
-    FTReadLastMonthEndDayIndex,
-    TLastMonthEndDayIndex
+    FTReadLastMonthDayIdx,
+    TFReadDayMap,
 } from "@/types/utils/calendar.types.ts";
+import dayjs from "dayjs";
 
 
 /**
@@ -16,26 +16,31 @@ class CalendarDjs {
     /**
      * Хранит информацию о последнем дне предыдущего месяца, включая его читаемое название и индекс.
      * @private
-     * @type {TLastMonthEndDayIndex | undefined}
+     * @type {FTReadLastMonthDayIdx | undefined}
      */
-    private lastMonthEndDayIndex: TLastMonthEndDayIndex | undefined;
+    private monthMap: ReturnType<TFReadDayMap> | undefined
+    private lastMonthEndDayIndex: ReturnType<FTReadLastMonthDayIdx> | undefined;
+
+    constructor() {
+        this.monthMap = []
+        this.lastMonthEndDayIndex = undefined
+    }
 
     /**
      * Рассчитывает и сохраняет последний день предыдущего месяца на основе предоставленной даты.
      * Обновляет `lastMonthEndDayIndex` читаемым названием дня недели и индексом дня.
      *
      * @function
-     * @name getLastMonthEndDayIndex
+     * @name getLastMonthDayIdx
      * @memberof CalendarDjs
      * @instance
      * @param data - Объект Dayjs, представляющий дату начала для вычислений.
      * @returns  Возвращает текущий экземпляр класса для цепочки вызовов.
      */
-    public getLastMonthEndDayIndex: FTChainWorkingWithDayjs = (data) => {
+    public getLastMonthDayIdx: FTExtendFunctionChain = ({data}) => {
         const initialData = data.add(-1, "month");
         const maxDay = initialData.daysInMonth();
         const newData = dayjs(`${initialData.year()}-${initialData.month() + 1}-${maxDay}`);
-
         this.lastMonthEndDayIndex = {
             humanReadableName: newData.format('dddd'),
             indexDayJs: newData.day()
@@ -47,17 +52,14 @@ class CalendarDjs {
      * Получает сохраненную информацию о последнем дне предыдущего месяца.
      *
      * @function
-     * @name readLastMonthEndDayIndex
+     * @name readLastMonthDayIdx
      * @memberof CalendarDjs
      * @instance
      * @returns  Объект, содержащий название дня недели и индекс последнего дня.
      * @throws {Error} Выбрасывает ошибку, если `lastMonthEndDayIndex` не был установлен, что означает,
      * что метод `getLastMonthEndDayIndex` не был вызван.
      */
-    public readLastMonthEndDayIndex: FTReadLastMonthEndDayIndex = () => {
-        if (this.lastMonthEndDayIndex) return this.lastMonthEndDayIndex;
-        throw new Error("`lastMonthEndDayIndex` не существует, возможно, вы не вызвали `getLastMonthEndDayIndex`");
-    };
+    public readLastMonthDayIdx: FTReadLastMonthDayIdx = () => this.checkAttr<typeof this.lastMonthEndDayIndex>(this.lastMonthEndDayIndex);
 
     /**
      * @function
@@ -66,22 +68,29 @@ class CalendarDjs {
      * начать календарь с нужного дня недели.
      * @description Генерирует карту дней в месяце
      * @param data
+     * @param mapssFn
      */
-    public generateDayMap: FTGenerateDayMap = (data) => {
-        return Array.from({length: data.daysInMonth()}, (_, day) => day + 1)
+    public generateDayMap: FTGenerateDayMap = ({data, mapFn}) => {
+        return Array.from({length: data.daysInMonth()}, mapFn ? mapFn : (_: unknown, day: number) => day + 1)
+
+    }
+    public readDayMap: TFReadDayMap = () => this.checkAttr<typeof this.monthMap>(this.monthMap);
+
+    public generateDayMapWithPastMonth: FTExtendFunctionChain = ({data}) => {
+        const pastMonth: ReturnType<typeof this.readLastMonthDayIdx> = this.getLastMonthDayIdx({data}).readLastMonthDayIdx()
+        const nullableMonth: ReturnType<TFReadDayMap> = Array.from({length: pastMonth.indexDayJs}, (): number => 0)
+        this.generateDayMap({data, mapFn: (_, day) => nullableMonth.push(day + 1)})
+        this.monthMap = nullableMonth
+        return this
     }
 
-
-    public generateDayMapWithPastMonth: FTGenerateDayMap = (data) => {
-        const pastMonth = this.getLastMonthEndDayIndex(data).readLastMonthEndDayIndex()
-        const nullableMonth = Array.from({length: pastMonth.indexDayJs}, () => 0)
-        Array.from({length: data.daysInMonth()}, (_, day) => nullableMonth.push(day + 1))
-        return nullableMonth
-    }
+    private checkAttr = <TVarData>(variable: TVarData): NonNullable<TVarData> => {
+        if (variable) return variable;
+        else throw new Error(`The request for a variable was rejected because it does not exist. The variable is "${typeof variable}"`);
+    };
 }
 
 const x = new CalendarDjs
-
-const chain = x.generateDayMapWithPastMonth(dayjs().add(9, "month"))
+const chain = x.readDayMap()
 console.log(chain)
 export default CalendarDjs;
