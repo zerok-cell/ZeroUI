@@ -5,11 +5,11 @@ import dts from "vite-plugin-dts";
 import tsconfigPaths from "vite-tsconfig-paths";
 import * as path from "node:path";
 import {libInjectCss} from "vite-plugin-lib-inject-css";
-import purgeCssPlugin from "@mojojoejo/vite-plugin-purgecss";
 import {globSync} from "glob"
 import {fileURLToPath} from "url"
 import {visualizer} from "rollup-plugin-visualizer";
 import {analyzer} from 'vite-bundle-analyzer'
+import svgr from "vite-plugin-svgr";
 
 const libName = "zeroui"
 
@@ -17,14 +17,13 @@ const libName = "zeroui"
 export default defineConfig({
     plugins: [react(),
         tsconfigPaths(),
+        svgr(),
         visualizer({
             filename: './stats.html',
             gzipSize: true
         }),
         libInjectCss(),
-        purgeCssPlugin({
-            content: ['./lib/**/*.tsx'], // Проверяйте все файлы
-        }),
+
         analyzer(),
         dts({
             exclude: ["lib/utils", "lib/css"],
@@ -33,11 +32,13 @@ export default defineConfig({
             insertTypesEntry: true,
         }),
         vanillaExtractPlugin({
+
             identifiers: ({hash}) => `zr-${hash}`
         })
 
     ],
     build: {
+        assetsInlineLimit: 0,
         minify: 'terser',
         terserOptions: {
             compress: {
@@ -64,10 +65,8 @@ export default defineConfig({
             },
             format: {
                 comments: false, // Удаляет комментарии
-                beautify: false, // Отключает форматирование (максимальное сжатие)
             },
         },
-        copyPublicDir: false,
         lib: {
 
             entry: path.resolve(__dirname, "lib/main.ts"),
