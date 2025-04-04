@@ -1,13 +1,22 @@
-import {style} from "@vanilla-extract/css";
 import {varsGlobalTheme} from "@/main.ts";
-import {reserveSpaceFromArrow} from "@/ui/Selector/css/select.css.ts";
+import {recipe} from "@vanilla-extract/recipes";
 
 
-export const arrowStyle = style({
-    width: reserveSpaceFromArrow,
-    position: "relative",
-    right: "35px",
-    pointerEvents: 'none',
-    height: "max-content",
-    fill: varsGlobalTheme.colors.accent,
+export const arrowStyle = recipe({
+    base: {
+        transition: ".1s ease-in-out",
+        width: 20,
+        right: "35px",
+        pointerEvents: 'none',
+        height: "max-content",
+        fill: varsGlobalTheme.colors.accent,
+    },
+    variants: {
+        rotate: {
+            true: {
+                opacity: '0.5',
+                transform: "rotate(180deg)",
+            },
+        }
+    }
 })

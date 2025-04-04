@@ -3,8 +3,8 @@ import varsGlobalTheme from "@/theme/base.css.ts";
 import {borderStyle, borderWidth} from "@s/border/border.css.ts";
 import {paddingSize} from "@s/padding/padding.css.ts";
 import {clickElement} from "@s/generalBehaviour.css.ts";
-import arrow from "public/images/arrow-select.svg"
-import {createVar, globalStyle} from "@vanilla-extract/css";
+import {createVar, globalStyle, style} from "@vanilla-extract/css";
+import {flexBox} from "@s/flex.css.ts";
 
 
 export const reserveSpaceFromArrow = createVar()
@@ -16,25 +16,33 @@ globalStyle(":root", {
 
 export const selectStyle = recipe({
     base: [
-        borderStyle['outlined'],
-        borderWidth['md'],
-        paddingSize["sm"],
         clickElement,
 
         {
-            paddingRight: reserveSpaceFromArrow,
-            backgroundImage: `url("${arrow}")`,
-            backgroundPosition: "right 10px center",
-            backgroundSize: "20px 20px",
+            // paddingRight: reserveSpaceFromArrow,
             outline: "none",
+            width: "100%",
             cursor: 'pointer',
-            backgroundRepeat: "no-repeat",
             appearance: "none",
-            backgroundColor: varsGlobalTheme.colors.primary,
             borderRadius: varsGlobalTheme.roundedPx.md,
             borderColor: varsGlobalTheme.colors.accent,
-            color: varsGlobalTheme.colors.accent,
-         
         },
-    ]
+
+    ],
+    variants: {
+        paddingSize,
+        borderStyle,
+        borderWidth,
+    },
+    defaultVariants: {
+        paddingSize: "sm",
+        borderStyle: "outlined",
+        borderWidth: "md",
+    }
 })
+
+export const selectContainer = style([flexBox, {
+    flexDirection: "row",
+    height: "max-content",
+    width: 'max-content',
+}])

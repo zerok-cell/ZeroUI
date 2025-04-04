@@ -11,6 +11,7 @@ const flexBox = style({
     flexDirection: "row",
     justifyContent: "center",
     alignContent: "center",
+    alignItems: "center"
 
 })
 export {flexBox}
