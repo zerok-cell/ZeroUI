@@ -1,6 +1,5 @@
 import CalendarDjs from "@/utils/calendar.ts";
 import dayjs from "dayjs";
-import memoizee from "memoizee";
 
 
 //Типы для цепочек вызовов -----------------
@@ -17,6 +16,12 @@ type RFTClosing<TData> = TData
 type TBaseFunctionParameters = {
     data: dayjs.Dayjs
 }
+
+export enum EGetNameWeekdayOrMonth {
+    month = "MMMM",
+    day = "dddd"
+}
+
 type FTExtendedFunction<FRTData, FTData = TBaseFunctionParameters, > = (data: FTData) => FRTData
 type FTExtendFunctionChain = FTExtendedFunction<RFTChain>
 type FTGenerateDayMap = FTExtendedFunction<RFTClosing<number[]>, TBaseFunctionParameters & {
@@ -38,10 +43,14 @@ type TNameMonth = {
     } & Record<number, string>;
 
 }
-type FTGetNameMonth = () => RFTClosing<TNameMonth> & memoizee.Memoized<() => RFTClosing<TNameMonth>>
+// type FTMemoFunction<FTFuntion extends (...args: any[]) => any> = FTFuntion & memoizee.Memoized<FTFuntion>
+type FTAddValue = FTExtendedFunction<RFTClosing<void>, { month: number, name: string, sliceName: string }>
+
+type FTGetNameWeekdayOrMonth = FTExtendedFunction<RFTClosing<TNameMonth>, { whatsGet: EGetNameWeekdayOrMonth }>
 
 export type {
-    FTGetNameMonth,
+    FTAddValue,
+    FTGetNameWeekdayOrMonth,
     TNameMonth,
     TFGenerateLines,
     TFReadDayMap,

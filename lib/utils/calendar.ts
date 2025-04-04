@@ -1,7 +1,8 @@
 import {
+    FTAddValue,
     FTExtendFunctionChain,
     FTGenerateDayMap,
-    FTGetNameMonth,
+    FTGetNameWeekdayOrMonth,
     FTReadLastMonthDayIdx,
     TFGenerateLines,
     TFReadDayMap,
@@ -17,32 +18,7 @@ import memoizee from "memoizee";
  * последнего дня предыдущего месяца и его индекса. Поддерживает цепочку вызовов.
  */
 class CalendarDjs {
-    public getNameMonth: FTGetNameMonth = memoizee(() => {
-        const monthCount = Array.from({length: 12}, (_, indexMonth) => indexMonth)
-        const nameMonth: TNameMonth = {
-            fullNames: {
-                msv: []
-            },
-            shortNames: {
-                msv: []
-            }
-        }
-        console.log(dayjs().day(2).format("dddd"))
-        monthCount.forEach((month) => {
-            const name = dayjs().month(month).format("MMMM");
-            const sliceName = name.slice(0, 2);
-
-            nameMonth.fullNames[month] = name;
-            nameMonth.fullNames.msv.push(name);
-
-            nameMonth.shortNames[month] = sliceName;
-            nameMonth.shortNames.msv.push(sliceName);
-        })
-        return nameMonth
-
-    })
-
-    public getNameWeekday = memoizee(() => {
+    public getNameWeekdayOrMonth: FTGetNameWeekdayOrMonth = memoizee(({whatsGet}) => {
 
         const weekdayCount = Array.from({length: 7}, (_, indexMonth) => indexMonth)
         const nameWeekday: TNameMonth = {
@@ -53,16 +29,17 @@ class CalendarDjs {
                 msv: []
             }
         }
-        console.log(dayjs().day(2).format("dddd"))
-        weekdayCount.forEach((month) => {
-            const name = dayjs().day(month).format("dddd");
-            const sliceName = name.slice(0, 2);
-
+        const addValue: FTAddValue = ({month, name, sliceName}) => {
             nameWeekday.fullNames[month] = name;
             nameWeekday.fullNames.msv.push(name);
-
             nameWeekday.shortNames[month] = sliceName;
             nameWeekday.shortNames.msv.push(sliceName);
+
+        }
+        weekdayCount.forEach((month) => {
+            const name = dayjs().day(month).format(whatsGet);
+            const sliceName = name.slice(0, 2);
+            addValue({month, name, sliceName})
         })
         return nameWeekday
 
@@ -158,8 +135,8 @@ class CalendarDjs {
     };
 }
 
-
-const x = new CalendarDjs
-const chain = x.getNameWeekday()
-console.log(chain)
+//
+// const x = new CalendarDjs
+// const chain = x.getNameWeekdayOrMonth({whatsGet: EGetNameWeekdayOrMonth.month})
+// console.log(chain)
 export default CalendarDjs;
