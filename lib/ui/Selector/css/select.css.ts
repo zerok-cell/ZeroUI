@@ -41,7 +41,7 @@ export const selectStyle = recipe({
     }
 })
 
-export const selectContainer = style([flexBox, {
+export const selectContainer = style([flexBox(), {
     flexDirection: "row",
     height: "max-content",
     width: 'max-content',
