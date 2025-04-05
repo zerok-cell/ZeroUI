@@ -7,7 +7,9 @@ import {scrollStyle} from "@s/scroll.css.ts";
 
 export const optionStyle = recipe({
     base: [clickElement, {
-        width: "100%"
+        width: "100%",
+        userSelect: "none",
+        cursor: "pointer"
 
     }],
 

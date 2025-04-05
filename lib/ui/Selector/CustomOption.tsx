@@ -10,9 +10,17 @@ export const Option: FC<{ option: string, index: number }> = ({option, index}) =
         setSelectStyle(selected?.id === index)
     }, [index, selected]);
 
+    const onClick = () => {
+        if (selected?.id === index) {
+            setSelected({id: undefined, text: undefined})
+            setSelectStyle(false)
+
+        } else setSelected({id: index, text: option})
+
+    }
 
     return <div className={optionStyle({selected: selectStyle})}
-                onClick={() => setSelected({id: index, text: option})}
+                onClick={onClick}
     >
         {/*<span>{option}</span>*/}
         <span>{option}</span>

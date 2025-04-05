@@ -15,7 +15,7 @@ export const ButtonSelector: FC<Pick<Parameters<TSelector>[0], "welcome">> = ({w
                 }}
         >
                 <span className={flexBox({justifyContent: 'between', alignContent: 'center', alignItems: 'center'})}>
-                    {selected ? selected?.text : welcome}
+                    {selected?.text ? selected?.text : welcome}
                     <Arrow className={arrowStyle({rotate: activate})}/>
                 </span>
         </Button>)
