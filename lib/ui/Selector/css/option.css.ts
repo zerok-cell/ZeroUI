@@ -1,11 +1,24 @@
-import {colorBaseStyle} from "@s/generalBehaviour.css.ts";
+import {clickElement, colorBaseStyle} from "@s/generalBehaviour.css.ts";
 import varsGlobalTheme from "@/theme/base.css.ts";
 import {flexBox} from "@s/flex.css.ts";
 import {recipe} from "@vanilla-extract/recipes";
 import {scrollStyle} from "@s/scroll.css.ts";
 
 
-export const option ()
+export const optionStyle = recipe({
+    base: [clickElement, {
+        width: "100%"
+
+    }],
+
+    variants: {
+        selected: {
+            true: {
+                background: varsGlobalTheme.colors.active
+            }
+        }
+    }
+})
 export const optionBlock = recipe({
     base: [scrollStyle(), flexBox({alignItems: "start", flexDirection: "column",}), colorBaseStyle, {
         padding: 5,

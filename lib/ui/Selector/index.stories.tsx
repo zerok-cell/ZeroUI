@@ -23,5 +23,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = () => (
-    <Index options={["dewdawdawdawadwawd", 2, 3, 4, 5]}/>
+    <Index welcome={"Выберети язык"} options={["Python", "PHP", "JavaScript", "TypeScript", "Django"]}/>
 );

@@ -1,32 +1,28 @@
 import {TSelector} from "@/types/ui/selector.types.ts";
-import Array from "public/images/arrow-select.svg?react"
-import {arrowStyle} from "@/ui/Selector/css/arrow.css.ts";
-import {containerStyle} from "@/ui/Selector/css/containerSelect.css.ts";
-import {useState} from "react";
-import {Button} from "@/ui";
-import {selectStyle} from "@/ui/Selector/css/select.css.ts";
+import {SelectorProvider} from "@/providers/SelectorProvider.tsx";
+import {ButtonSelector} from "@/ui/Selector/ButtonSelector.tsx";
 import {Option} from "@/ui/Selector/CustomOption.tsx";
+import {useSelector} from "@/hooks/useSelector.ts";
+import {useEffect} from "react";
 import {optionBlock} from "@/ui/Selector/css/option.css.ts";
-import {flexBox} from "@s/flex.css.ts";
 
-const Selector: TSelector = ({options, ...props}) => {
-    const [active, setActive] = useState<boolean>(false)
-    const [select, setSelect] = useState(() => options[1])
+const Selector: TSelector = ({options, welcome, ...props}) => {
+    // const {activate,selected} = useSelector()
+    // const [select, setSelect] = useState(() => options[0])
+    const {selected} = useSelector()
+    useEffect(() => {
+        console.log(selected)
+    }, [selected]);
     return (
-        <div className={containerStyle}>
-            <Button
-                onClick={() => setActive(!active)}
-                className={selectStyle({...props})}>
-                <div className={flexBox({justifyContent: "between"})}>
-                    {select} <Array className={arrowStyle({rotate: active})}/>
-                </div>
-            </Button>
-            <div className={optionBlock({active})}>
-                {options.map((option) => (
-                    <Option option={option}/>
-                ))}
+        <SelectorProvider>
+            <div>
+                <ButtonSelector welcome={welcome}/>
+                <div className={optionBlock()}>{options.map((option, index) => (
+                    <Option option={option} index={index}/>
+                ))}</div>
             </div>
-        </div>
+        </SelectorProvider>
+
 
     )
 
