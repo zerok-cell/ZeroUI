@@ -19,7 +19,6 @@ export const selectStyle = recipe({
         clickElement,
 
         {
-            // paddingRight: reserveSpaceFromArrow,
             outline: "none",
             width: "100%",
             cursor: 'pointer',

@@ -3,9 +3,7 @@ import {FC} from "react";
 
 export const Option: FC<{ option: number | string }> = ({option}) => {
 
-    return <div className={clickElement} style={{
-        height: "max-content"
-    }}>
+    return <div className={clickElement}>
         <span>{option}</span>
     </div>
 }

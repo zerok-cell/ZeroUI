@@ -11,23 +11,19 @@ import {flexBox} from "@s/flex.css.ts";
 
 const Selector: TSelector = ({options, ...props}) => {
     const [active, setActive] = useState<boolean>(false)
-    const [select, setSelect] = useState(() => options[0])
+    const [select, setSelect] = useState(() => options[1])
     return (
         <div className={containerStyle}>
             <Button
                 onClick={() => setActive(!active)}
                 className={selectStyle({...props})}>
-                <div className={flexBox()}>
+                <div className={flexBox({justifyContent: "between"})}>
                     {select} <Array className={arrowStyle({rotate: active})}/>
                 </div>
             </Button>
-
-
             <div className={optionBlock({active})}>
                 {options.map((option) => (
-                    <Option option={option}>
-                        {option}
-                    </Option>
+                    <Option option={option}/>
                 ))}
             </div>
         </div>
